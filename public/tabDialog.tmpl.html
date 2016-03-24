@@ -1,0 +1,50 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add a BookMark</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+     
+          <md-content class="md-padding">
+
+           <md-input-container class="md-block" flex-gt-sm>
+          <label>Url</label>
+          <input type="url" md-maxlength="30" required name="name" ng-model="user.name" />
+          <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
+          <div ng-messages="userForm.name.$error" ng-if="!showHints">
+            <div ng-message="required">Url is required.</div>
+            <div ng-message="url">Need a Valid URL</div>
+          </div>
+        </md-input-container>
+         <md-input-container class="md-block" flex-gt-sm>
+            <label>Category</label>
+            <md-select ng-model="user.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          </md-content>
+       
+
+        
+   
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        Cancel
+      </md-button>
+      <span flex></span>
+     
+      <md-button ng-click="answer('useful')" style="margin-right:20px;" >
+        Add
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
