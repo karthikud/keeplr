@@ -9,7 +9,7 @@
       </div>
     </md-toolbar>
   <md-dialog-content>
-   <md-input-container class="md-block" flex-gt-sm>
+   <md-input-container class="md-block">
           <label>Url</label>
           <input type="url" md-maxlength="30" required name="name" ng-model="user.name" />
           <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
@@ -18,7 +18,7 @@
             <div ng-message="url">Need a Valid URL</div>
           </div>
         </md-input-container>
- <md-input-container class="md-block" flex-gt-sm>
+ <md-input-container class="md-block">
             <label>Category</label>
             <md-select ng-model="user.state">
               <md-option ng-repeat="state in states" value="{{state.abbrev}}">
