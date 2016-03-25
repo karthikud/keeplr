@@ -1,6 +1,6 @@
 var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons']);
 
-app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia){
+app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia','BookMarks' function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia,BookMarks){
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -82,6 +82,27 @@ app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
 });
 
 function DialogController($scope, $mdDialog,bookmark) {
+  $scope.bookmark = {};
+		$scope.loading = true;
+
+		$scope.createbookmark = function() {
+
+			// validate the bookmark to make sure that something is there
+			// if form is empty, nothing will happen
+			if ($scope.bookmark.text != undefined) {
+				$scope.loading = true;
+
+				// call the create function from our service (returns a promise object)
+				Todos.create($scope.bookmark)
+
+					// if successful creation, call our get function to get all the new todos
+					.success(function(data) {
+						$scope.loading = false;
+						$scope.bookmark = {}; // clear the form so our user is ready to enter another
+						$scope.todos = data; // assign our new list of todos
+					});
+			}
+		};
   $scope.bookmark = bookmark;
   $scope.categories = ('Shopping Technology Print&Media Sports Blogs News Projects Movies').split(' ').map(function(category) {
         return category;
@@ -94,9 +115,12 @@ function DialogController($scope, $mdDialog,bookmark) {
     $mdDialog.cancel();
   };
   $scope.add = function(data) {
+    
     $mdDialog.hide(data);
   };
 };
+
+
 
 app.directive('userAvatar', function() {
   return {
