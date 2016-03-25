@@ -1,6 +1,6 @@
 var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons']);
 
-app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog){
+app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia){
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
@@ -72,6 +72,7 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog',
         notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
       },
     ];
+    $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
   $scope.alert = '';
   $scope.showListBottomSheet = function($event) {
     $scope.alert = '';
