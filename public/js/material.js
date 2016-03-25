@@ -52,7 +52,7 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog',
   $scope.showAdd = function(ev) {
     $mdDialog.show({
        locals: {
-           items: $scope.items
+           bookmark: $scope.bookmark
          },
       controller: DialogController,
       templateUrl: 'tabDialog.tmpl.html',
