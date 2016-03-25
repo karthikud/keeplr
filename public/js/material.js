@@ -80,7 +80,8 @@ app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
   };
 });
 
-function DialogController($scope, $mdDialog) {
+function DialogController($scope, $mdDialog,items) {
+  $scope.items = items;
   $scope.hide = function() {
     $mdDialog.hide();
   };
