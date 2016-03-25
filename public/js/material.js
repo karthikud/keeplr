@@ -1,4 +1,4 @@
-angular.module('StarterApp', [])
+angular.module('StarterApp', ['AppCtrl', 'bookmarkService','ngMaterial', 'ngMdIcons'])
 
 .controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia','BookMarks',function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia,BookMarks){
   $scope.toggleSidenav = function(menuId) {
