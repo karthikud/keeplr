@@ -108,7 +108,7 @@ angular.module('StarterApp', ['bookmarkService','ngMaterial', 'ngMdIcons'])
 
 ;
 
-function DialogController($scope, $mdDialog,bookmark) {
+function DialogController($scope, $mdDialog,bookmark,BookMarks) {
   $scope.bookmark = {};
 		$scope.loading = true;
 
@@ -120,7 +120,7 @@ function DialogController($scope, $mdDialog,bookmark) {
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)
-				Todos.create($scope.bookmark)
+				BookMarks.create($scope.bookmark)
 
 					// if successful creation, call our get function to get all the new todos
 					.success(function(data) {
