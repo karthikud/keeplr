@@ -11,7 +11,7 @@ var categorySchema = Schema({
 
 var bookmarkSchema = Schema({
   _belongs : { type: Number, ref: 'Category' },
-  title    : String,
+  url    : String,
   _creator : { type: Number, ref: 'User' }
 });
 
