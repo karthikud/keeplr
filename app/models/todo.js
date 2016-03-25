@@ -14,8 +14,8 @@ var bookmarkSchema = Schema({
   _creator : { type: Number, ref: 'User' },
 });
 module.exports = {
-    mongoose.model(mongoose.model('Category', categorySchema));
-    mongoose.model(mongoose.model('BookMark', bookmarkSchema));
+    mongoose.model('Category', categorySchema);
+    mongoose.model('BookMark', bookmarkSchema);
 }
 
 
