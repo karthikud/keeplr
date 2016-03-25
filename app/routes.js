@@ -1,14 +1,14 @@
-var Todo = require('./models/todo');
+var BookMark = require('./models/todo');
 
-function getTodos(res) {
-    Todo.find(function (err, todos) {
+function getBookMarks(res) {
+    Todo.find(function (err, bookmarks) {
 
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err) {
             res.send(err);
         }
 
-        res.json(todos); // return all todos in JSON format
+        res.json(bookmarks); // return all todos in JSON format
     });
 }
 ;
@@ -17,24 +17,24 @@ module.exports = function (app) {
 
     // api ---------------------------------------------------------------------
     // get all todos
-    app.get('/api/todos', function (req, res) {
+    app.get('/api/bookmarks', function (req, res) {
         // use mongoose to get all todos in the database
-        getTodos(res);
+        getBookMarks(res);
     });
 
     // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
+    app.post('/api/bookmarks', function (req, res) {
 
         // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            done: false
-        }, function (err, todo) {
+        BookMark.create({
+            url: req.body.url,
+            category: false
+        }, function (err, bookmark) {
             if (err)
                 res.send(err);
 
             // get and return all the todos after you create another
-            getTodos(res);
+            getBookMarks(res);
         });
 
     });
