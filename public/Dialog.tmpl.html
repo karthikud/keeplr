@@ -1,7 +1,7 @@
 <md-dialog aria-label="Mango (Fruit)"> 
 <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add BookMark</h2>
+        <h2>Add Category</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -9,25 +9,18 @@
       </div>
     </md-toolbar>
   <md-dialog-content style="max-width:800px;max-height:810px; ">
-        <p>hifhidfjkjkjkjkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnkjnjk</p>
+        
        <div layout="row">
    <md-input-container class="md-block">
           <label>Url</label>
-          <input type="url" md-maxlength="30" required name="name" ng-model="user.name" />
+          <input type="url" md-maxlength="30" required name="name" ng-model="category.name" />
           <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
-          <div ng-messages="userForm.name.$error" ng-if="!showHints">
+          <div ng-messages="category.name.$error" ng-if="!showHints">
             <div ng-message="required">Url is required.</div>
             <div ng-message="url">Need a Valid URL</div>
           </div>
         </md-input-container>
- <md-input-container class="md-block">
-            <label>Category</label>
-            <md-select ng-model="user.state">
-              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
-                {{state.abbrev}}
-              </md-option>
-            </md-select>
-          </md-input-container> 
+ 
       </div>
   </md-dialog-content>
   <md-dialog-actions>
