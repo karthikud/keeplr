@@ -4,8 +4,8 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog',
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
-  $scope.items =[{url:'https://www.google.com/',category:'Shopping'}];
   $scope.bookmark =[{url:'https://www.google.com/',category:'Shopping'}];
+  $scope.items =[{url:'https://www.google.com/',category:'Shopping'}];
  	$scope.menu = [
     {
       link : '',
@@ -81,8 +81,9 @@ app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
   };
 });
 
-function DialogController($scope, $mdDialog,items) {
-  $scope.items = items;
+function DialogController($scope, $mdDialog,bookmark) {
+  $scope.bookmark = bookmark;
+  
   $scope.hide = function() {
     $mdDialog.hide();
   };
