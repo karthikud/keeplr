@@ -69,9 +69,9 @@ angular.module('StarterApp', ['bookmarkService','ngMaterial', 'ngMdIcons'])
   //add dialog
    $scope.showAddcategory = function(ev) {
     $mdDialog.show({
-       
-      controller: DialogController,
-      //templateUrl: 'Dialog.tmpl.html',
+    	
+       controller: CategoryDialogController,
+      templateUrl: 'Dialog.tmpl.html',
       //template: '<md-dialog aria-label="Mango (Fruit)"> <md-content class="md-padding"> <form name="userForm"> <div layout layout-sm="column"> <md-input-container flex> <label>First Name</label> <input ng-model="user.firstName" placeholder="Placeholder text"> </md-input-container> <md-input-container flex> <label>Last Name</label> <input ng-model="theMax"> </md-input-container> </div> <md-input-container flex> <label>Address</label> <input ng-model="user.address"> </md-input-container> <div layout layout-sm="column"> <md-input-container flex> <label>City</label> <input ng-model="user.city"> </md-input-container> <md-input-container flex> <label>State</label> <input ng-model="user.state"> </md-input-container> <md-input-container flex> <label>Postal Code</label> <input ng-model="user.postalCode"> </md-input-container> </div> <md-input-container flex> <label>Biography</label> <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')"> Cancel </md-button> <md-button ng-click="answer(\'useful\')" class="md-primary"> Save </md-button> </div></md-dialog>',
       targetEvent: ev,
     })
@@ -159,3 +159,39 @@ function DialogController($scope, $mdDialog,bookmark,BookMarks) {
     $mdDialog.hide(data);
   };
 }
+
+function CategoryDialogController($scope, $mdDialog,Categories) {
+  $scope.category = {};
+		$scope.loading = true;
+
+		$scope.createcategory = function() {
+
+			// validate the bookmark to make sure that something is there
+			// if form is empty, nothing will happen
+			if ($scope.category.name != undefined) {
+				$scope.loading = true;
+
+				// call the create function from our service (returns a promise object)
+				Categories.create($scope.category)
+
+					// if successful creation, call our get function to get all the new todos
+					.success(function(data) {
+						$scope.loading = false;
+						$scope.category = {}; // clear the form so our user is ready to enter another
+						//$scope.bookmarks = data; // assign our new list of todos
+					});
+			}
+		};
+  
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+  $scope.add = function(data) {
+    
+    $mdDialog.hide(data);
+  };
+}
+
