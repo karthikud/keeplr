@@ -12,11 +12,11 @@
         
        <div layout="row">
    <md-input-container class="md-block">
-          <label>Url</label>
+          <label>Name</label>
           <input type="text" md-maxlength="30" required name="name" ng-model="category.name" />
           <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
           <div ng-messages="category.name.$error" ng-if="!showHints">
-            <div ng-message="required">Url is required.</div>
+            <div ng-message="required">Name is required.</div>
             
           </div>
         </md-input-container>
