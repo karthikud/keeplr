@@ -27,8 +27,7 @@ module.exports = function (app) {
 
         // create a todo, information comes from AJAX request from Angular
         BookMark.create({
-            url: req.body.url,
-            _belongs: 'Shopping'
+            url: req.body.url
         }, function (err, bookmark) {
             if (err)
                 res.send(err);
