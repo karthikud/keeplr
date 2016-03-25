@@ -5,6 +5,7 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog',
     $mdSidenav(menuId).toggle();
   };
   $scope.items =[{url:'https://www.google.com/',category:'Shopping'}];
+  $scope.bookmark =[{url:'https://www.google.com/',category:'Shopping'}];
  	$scope.menu = [
     {
       link : '',
