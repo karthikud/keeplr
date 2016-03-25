@@ -89,7 +89,7 @@ function DialogController($scope, $mdDialog,bookmark) {
 
 			// validate the bookmark to make sure that something is there
 			// if form is empty, nothing will happen
-			if ($scope.bookmark.text != undefined) {
+			if ($scope.bookmark.url != undefined) {
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)
@@ -99,7 +99,7 @@ function DialogController($scope, $mdDialog,bookmark) {
 					.success(function(data) {
 						$scope.loading = false;
 						$scope.bookmark = {}; // clear the form so our user is ready to enter another
-						$scope.todos = data; // assign our new list of todos
+						$scope.bookmarks = data; // assign our new list of todos
 					});
 			}
 		};
