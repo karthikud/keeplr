@@ -83,6 +83,9 @@ app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
 
 function DialogController($scope, $mdDialog,bookmark) {
   $scope.bookmark = bookmark;
+  $scope.categories = ('Shopping Technology Print&Media Sports Blogs News Projects Movies').split(' ').map(function(state) {
+        return categories;
+      }) 
   
   $scope.hide = function() {
     $mdDialog.hide();
