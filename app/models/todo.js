@@ -12,11 +12,9 @@ var categorySchema = Schema({
 var bookmarkSchema = Schema({
   _belongs : { type: Number, ref: 'Category' },
   title    : String,
-  _creator : { type: Number, ref: 'User' },
+  _creator : { type: Number, ref: 'User' }
 });
-module.exports = {
-    mongoose.model('Category', categorySchema);
-    mongoose.model('BookMark', bookmarkSchema);
-}
 
-
+var Category  = mongoose.model('Category', categorySchema);
+var BookMark = mongoose.model('BookMark', bookmarkSchema);
+module.exports = BookMark;
