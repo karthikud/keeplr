@@ -1,1 +1,1 @@
-angular.module('StarterApp', ['AppCtrl', 'bookmarkService']);
+angular.module('StarterApp', ['AppCtrl', 'bookmarkService','ngMaterial', 'ngMdIcons']);
