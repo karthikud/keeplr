@@ -4,7 +4,7 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog',
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
-  $scope.items =[{url:'https://www.google.com/',category:'Shopping'];
+  $scope.items =[{url:'https://www.google.com/',category:'Shopping'}];
  	$scope.menu = [
     {
       link : '',
