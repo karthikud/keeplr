@@ -1,6 +1,6 @@
-var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons','BookMarks']);
+angular.module('StarterApp', [])
 
-app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia','BookMarks',function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia,BookMarks){
+.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia','BookMarks',function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia,BookMarks){
   $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
   };
