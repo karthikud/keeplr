@@ -1,0 +1,26 @@
+<md-dialog aria-label="Mango (Fruit)"> 
+<md-dialog aria-label="List dialog">
+  <md-dialog-content>
+   <md-input-container class="md-block" flex-gt-sm>
+          <label>Url</label>
+          <input type="url" md-maxlength="30" required name="name" ng-model="user.name" />
+          <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
+          <div ng-messages="userForm.name.$error" ng-if="!showHints">
+            <div ng-message="required">Url is required.</div>
+            <div ng-message="url">Need a Valid URL</div>
+          </div>
+        </md-input-container>
+ <md-input-container class="md-block" flex-gt-sm>
+            <label>Category</label>
+            <md-select ng-model="user.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container> 
+          </md-input-container> 
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="closeDialog()" class="md-primary">Close Dialog</md-button>
+  </md-dialog-actions>
+</md-dialog>
