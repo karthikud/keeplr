@@ -1,4 +1,5 @@
 <md-dialog aria-label="Mango (Fruit)"> 
+ <form>
 <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Add Category</h2>
@@ -20,11 +21,21 @@
             
           </div>
         </md-input-container>
+        </div>
+        <div layout="row">
+        
+          
+          <md-switch name="personal" ng-model="category.personal" aria-label="Switch 1">
+    Private: {{ data.cb1 }}
+  </md-switch>
+   
+        
  
       </div>
   </md-dialog-content>
   <md-dialog-actions>
-        <md-button ng-click="cancel()" class="md-primary">Save</md-button>
+        <md-button ng-click="createcategory()" class="md-primary">Save</md-button>
     <md-button ng-click="cancel()" class="md-primary">Cancel</md-button>
   </md-dialog-actions>
+  </form>
 </md-dialog>

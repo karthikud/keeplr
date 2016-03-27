@@ -1,136 +1,65 @@
-<html lang="en" >
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+<html lang="en" ng-app="keeplr">
+  <head>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-</head>
-  <!--
-    Your HTML content here
-  -->  
-  <body ng-app="MyApp" ng-controller ="MyController" layout="row" ng-cloak>
-
- <md-sidenav layout="column" md-component-id="left"  md-is-locked-open='true'>
- <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools"><i class="material-icons">list</i></h1>
-      </md-toolbar>
-   SideNav
-   </md-sidenav>
-  
-  <md-content flex layout="column">
-  <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools"></h1>
-      </md-toolbar>
-    <ng-view>
-      <div layout="row" layout-margin>
-  <md-card>
- <img src="card-image.png" class="md-card-image" alt="image caption">
- <md-card-content>
-   <h2>Card headline</h2>
-   <p>Card content</p>
- </md-card-content>
- <md-card-footer>
-   Card footer
- </md-card-footer>
-</md-card>
-<md-card>
- <img src="card-image.png" class="md-card-image" alt="image caption">
- <md-card-content>
-   <h2>Card headline</h2>
-   <p>Card content</p>
- </md-card-content>
- <md-card-footer>
-   Card footer
- </md-card-footer>
-</md-card>
+ </head>
+  <body ng-controller="LoginCtrl" ng-cloak>
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=818734078272952";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <md-grid-list
+        md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:2">
+    <md-grid-tile style="background-color:#64B5F6;"
+        md-rowspan="3" md-colspan="4" md-colspan-sm="1">
+        
+                <div layout="column" >
+  <section layout="column"  layout-sm="column" layout-align="center center" layout-wrap>
+      <div class="fb-page" data-href="https://www.facebook.com/krds" data-tabs="home" data-small-header="false" data-adapt-container-width="false" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/krds"><a href="https://www.facebook.com/krds">KRDS</a></blockquote></div></div>
+      
+     
+    </section>
 </div>
-
-      <md-button ng-click="openLeftMenu()">
-      Open Left Menu
-    </md-button>
-    <md-button class="md-primary md-raised" ng-click="showTabDialog($event)">
-      Add BookMark
-    </md-button>
-    </ng-view>
-   
-   
-   
-  </md-content>
-</body>
+      
+    </md-grid-tile>
+    <md-grid-tile class="green" md-rowspan="3" md-colspan="2" md-colspan-sm="1"style="background-color:#E3F2FD; >
+          <div layout="column">
+  <section layout="column"  layout-sm="column" layout-align="center center" layout-wrap>
+  <h2 class="md-display-1">Keeplr</h2>
   
-  <!-- Angular Material requires Angular.js Libraries -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+  <h3 class="md-headline">Collect & Organize your work</h3>
+      <md-button class="md-raised md-primary" href="/auth/google">Login With Google</md-button>
+      
+     
+    </section>
+</div>
+      
+    </md-grid-tile>
+    </md-grid-list>
+ 
+   
+     
 
-  <!-- Angular Material Library -->
-  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-  
-  <!-- Your application bootstrap  -->
-  <script type="text/javascript">    
-    /**
-     * You must include the dependency on 'ngMaterial' 
-     */
-    angular.module('MyApp', ['ngMaterial'])
-    .config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('default')
-    .primaryPalette('teal')
-    .accentPalette('orange');
-})
-    .controller('MyController',function($scope,$mdDialog, $mdMedia)
-      {
-        $scope.status = ' ';
-        var confirm ='';
-        $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
-      $scope.showTabDialog = function(ev) {
-    $mdDialog.show({
-      controller: DialogController,
-      templateUrl: 'tabDialog.tmpl.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose:true
-    })
-        .then(function(answer) {
+    
+    <!-- Angular Material Dependencies -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
 
-          $scope.status = 'You said the information was "' + answer + '".';
-        }, function() {
-          $scope.status = 'You cancelled the dialog.';
-        });
-  };
-
-
-      });
-    function DialogController($scope, $mdDialog) {
-
-      $scope.user = {
-      title: 'Developer',
-      email: 'ipsum@lorem.com',
-      firstName: '',
-      lastName: '',
-      company: 'Google',
-      address: '1600 Amphitheatre Pkwy',
-      city: 'Mountain View',
-      state: 'CA',
-      biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-      postalCode: '94043'
-    };  
-   $scope.states = ('Shopping Technology Print&Media Sports Blogs News Projects Movies').split(' ').map(function(state) {
-        return {abbrev: state};
-      })     
-  $scope.hide = function() {
-    $mdDialog.hide();
-  };
-  $scope.cancel = function() {
-    $mdDialog.cancel();
-  };
-  $scope.answer = function(answer) {
-    $mdDialog.hide(answer);
-  };
-}
-  </script>
-  
-</body>
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    
+    <script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script> 
+    <script src="/js/material.js"></script> 
+    <script src="/js/services/todos.js"></script>
+     <script src="/js/services/category.js"></script> 
+     <script src="/js/services/user.js"></script> 
+    
+  </body>
 </html>
