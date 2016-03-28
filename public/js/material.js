@@ -26,8 +26,8 @@ BookMarks.get()
   $scope.items =[{url:'https://www.google.com/',category:'Shopping'}];
  	$scope.menu = [
     {
-      link : '',
-      title: 'Dashboard',
+      link : '/boards',
+      title: 'Boards',
       icon: 'dashboard'
     },
     {
@@ -56,6 +56,26 @@ BookMarks.get()
  
     $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
   $scope.alert = '';
+
+// DELETE ==================================================================
+		
+		$scope.deleteboard = function(id) {
+			$scope.loading = true;
+
+			Categories.delete(id)
+				
+				.success(function(data) {
+Categories.get()
+ // if successful creation, call our get function to get all the new todos
+					.success(function(data) {
+                    console.log(data);
+						$scope.loading = false;
+						//$scope.bookmark = {}; // clear the form so our user is ready to enter another
+						$scope.categories = data; // assign our new list of todos
+					});
+					
+				});
+		};
   $scope.showListBottomSheet = function($event) {
     $scope.alert = '';
     $mdBottomSheet.show({

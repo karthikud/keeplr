@@ -42,7 +42,7 @@ module.exports = function (app,passport) {
     // the callback after google has authenticated the user
      app.get('/auth/google/callback',
             passport.authenticate('google', {
-                    successRedirect : '/profile',
+                    successRedirect : '/boards',
                     failureRedirect : '/'
             }));
             app.get('/login', function(req, res) {
@@ -50,7 +50,7 @@ module.exports = function (app,passport) {
         //res.sendFile(path.join(__dirname, '../public', 'login.html'));
     });
             // route for showing the profile page
-    app.get('/profile', isLoggedIn, function(req, res) {
+    app.get('/boards', isLoggedIn, function(req, res) {
      res.render('profile.ejs', {
             user : req.user // get the user out of session and pass to template
         });
@@ -118,10 +118,9 @@ var story1 = new BookMark({
     });
     
     //create category
-      // create todo and send back all todos after creation
+      
     app.post('/api/categories', function (req, res) {
             console.log(req.body.name);
-        // create a todo, information comes from AJAX request from Angular
         
         //save user with board name
         // try to find the user based on their google id
@@ -160,25 +159,31 @@ var story1 = new BookMark({
       
     });
 
-    // delete a todo
-    app.delete('/api/bookmarks/:todo_id', function (req, res) {
-        BookMark.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
+   
+
+// delete a board
+    app.delete('/api/categories/:category_id', function (req, res) {
+        Category.remove({
+            _id: req.params.category_id
+        }, function (err, category) {
             if (err)
                 res.send(err);
 
-            getBookMarks(res);
+            getCategories(res,req);
         });
     });
 
+   
+
     // application -------------------------------------------------------------
-    app.get('*', function (req, res) {
-        res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    app.get('*',isLoggedInR , function (req, res) {
+ 
+        res.render('index.ejs');
+
+       
     });
     
-    // delete a todo
-    
+   
 };
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
@@ -186,6 +191,16 @@ function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+function isLoggedInR(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+console.log('loggedin');
+        res.redirect('/profile');
 
     // if they aren't redirect them to the home page
     res.redirect('/');
