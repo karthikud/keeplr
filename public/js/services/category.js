@@ -12,6 +12,12 @@ angular.module('categoryService', [])
 			},
 			delete : function(id) {
 				return $http.delete('/api/categories/' + id);
+			},
+            getone : function(id) {
+				return $http.get('/api/categories/' + id);
+			},
+            edit : function(id,categoryData) {
+				return $http.post('/api/categories_update/' + id,categoryData);
 			}
 		}
 	}]);

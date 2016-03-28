@@ -24,10 +24,7 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 
 var session      = require('express-session');
-var webshot = require('webshot');
-var fs = require('fs');
-var temp = require("temp");
-var im = require('imagemagick');
+
 
 // configuration ===============================================================
 mongoose.connect(database.remoteUrl); 	// Connect to local MongoDB instance. A remoteUrl is also available (modulus.io)

@@ -65,7 +65,45 @@ Dashboard
 <i class="material-icons">filter_none</i>
 </md-button>
 </div>
-
+<md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column">
+      <md-toolbar style="background-color:#607D8B ;">
+      <h2 class="md-toolbar-tools">
+        <span>Boards</span>
+      </h2>
+    </md-toolbar>
+      <md-list-item ng-repeat="item in categories"  class="noright">
+    <img alt="{{ item.name }}" ng-src="http://placehold.it/50x50"" class="md-avatar" />
+    <p>{{ item.name }}</p>
+    
+    
+    
+   
+    <i ng-click="deleteboard(item._id)" class="material-icons">delete_sweep</i>
+    <md-button ng-click="editboard(item._id)"><i class="material-icons">mode_edit</i></md-button>
+    <md-button ng-click="showboard(item._id)"><i class="material-icons">flip_to_front</i></md-button>
+    
+  </md-list-item>
+</md-list>
+    </div>
+    <div flex-xs flex-gt-xs="50" layout="column">
+    <md-toolbar style="background-color:#CFD8DC ; color:#000">
+      <h2 class="md-toolbar-tools">
+        <span>BookMarks</span>
+      </h2>
+    </md-toolbar>
+     <md-list-item ng-repeat="item in bookmarks"  class="noright">
+     <img favicon url="item.url">
+    
+    <p>{{ item.url }}</p>
+    
+    
+    <md-button ng-click="deletebookmark(item._id)"><i class="material-icons">delete_sweep</i></md-button>
+  </md-list-item>
+</md-list>
+    </div>
+  </md-content>
+</div>
 <div layout="row" flex>
 <div class='md-padding' layout="row" layout-wrap flex > <md-card style="width: 200px;" ng-repeat="item in categories">
 

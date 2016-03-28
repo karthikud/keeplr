@@ -80,6 +80,21 @@ module.exports = function (app,passport) {
         // use mongoose to get all todos in the database
         getCategories(res,req);
     });
+    app.get('/api/categories/:category_id',isLoggedIn, function (req, res) {
+        // use mongoose to get all todos in the database
+         Category.findOne({ '_id' : req.params.category_id }, function(err, category) {
+                if (err)
+                    return done(err);
+
+                if (category) {
+                                       
+
+                    // if a user is found, log them in
+                  // res.sendStatus(200);
+                  res.json(category);
+                }
+            });
+    });
 
     // create bookmark
     app.post('/api/bookmarks', function (req, res) {
@@ -136,7 +151,57 @@ module.exports = function (app,passport) {
         
 
     });
-    
+    //edit board
+     app.post('/api/categories_update/:category_id', function (req, res) {
+            console.log(req.body.name);
+            console.log(req.body.id);
+        
+        //save user with board name
+        // try to find the user based on their google id
+           var usersession = req.user;
+            User.findOne({ 'google.id' : usersession.google.id }, function(err, user) {
+                if (err)
+                    return done(err);
+
+                if (user) {
+                        user.save(function (err) {
+                          if (err) return handleError(err);
+                          
+         Category.findOne({ '_id' : req.body.id}, function(err, category) {
+                if (err)
+                    return done(err);
+
+                if (category) {
+                console.log('am in ');
+                category.name = req.body.name;
+            category.personal = req.body.personal;
+            category.creator = user._id;
+                
+                        category.save(function (err) {
+                          if (err)  console.log(err);
+     
+                          
+                           });                
+
+                    // if a user is found, log them in
+                  // res.sendStatus(200);
+                  
+                }
+            });                   
+         
+                          
+                          
+                        });                
+
+                    // if a user is found, log them in
+                  // res.sendStatus(200);
+                  console.log('hi');
+                  getCategories(res,req);
+                }
+            });
+        
+      
+    });
     //create category
       
     app.post('/api/categories', function (req, res) {

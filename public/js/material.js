@@ -68,6 +68,7 @@ Categories.get()
       BookMarks.delete(id)
         
         .success(function(data) {
+        $mdToast.show($mdToast.simple().position('bottom','right').textContent('Deleted BookMark Successfully!'));
 BookMarks.get()
  // if successful deletion, call our get function to get all the new bookmarks
           .success(function(data) {
@@ -92,6 +93,44 @@ BookMarks.get()
             $scope.bookmarks = data; // assign our new list of todos
           });
     };
+    //edit
+     $scope.editboard = function(id) {
+     
+     Categories.getone(id)
+ // if successful creation, call our get function to get all the new todos
+					.success(function(data) {
+                    console.log(data);
+						
+						//$scope.bookmark = {}; // clear the form so our user is ready to enter another
+						$scope.category = data; // assign our new list of todos
+                        
+                        $mdDialog.show({
+       locals: {
+          
+            category: $scope.category
+         },
+      controller: EditCategoryDialogController,
+      templateUrl: 'Dialog.tmpl.html',
+      //template: '<md-dialog aria-label="Mango (Fruit)"> <md-content class="md-padding"> <form name="userForm"> <div layout layout-sm="column"> <md-input-container flex> <label>First Name</label> <input ng-model="user.firstName" placeholder="Placeholder text"> </md-input-container> <md-input-container flex> <label>Last Name</label> <input ng-model="theMax"> </md-input-container> </div> <md-input-container flex> <label>Address</label> <input ng-model="user.address"> </md-input-container> <div layout layout-sm="column"> <md-input-container flex> <label>City</label> <input ng-model="user.city"> </md-input-container> <md-input-container flex> <label>State</label> <input ng-model="user.state"> </md-input-container> <md-input-container flex> <label>Postal Code</label> <input ng-model="user.postalCode"> </md-input-container> </div> <md-input-container flex> <label>Biography</label> <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')"> Cancel </md-button> <md-button ng-click="answer(\'useful\')" class="md-primary"> Save </md-button> </div></md-dialog>',
+     
+    })
+    .then(function(data) {
+    $mdToast.show($mdToast.simple().position('bottom','right').textContent('Updated Board Successfully!'));
+       $scope.categories = Categories.get()
+ 
+					.success(function(data) {
+                    console.log(data);
+					
+						//$scope.bookmark = {}; // clear the form so our user is ready to enter another
+						$scope.categories = data; // assign our new list of todos
+					});
+    }, function() {
+      $scope.alert = 'You cancelled the dialog.';
+    });
+					});
+    
+  };
+    
   $scope.showListBottomSheet = function($event) {
     $scope.alert = '';
     $mdBottomSheet.show({
@@ -115,7 +154,7 @@ BookMarks.get()
       targetEvent: ev,
     })
     .then(function(data) {
-      $scope.alert = 'You said the information was "' + data + '".';
+      $mdToast.show($mdToast.simple().position('bottom','right').textContent('Added BookMark Successfully!'));
     }, function() {
       $scope.alert = 'You cancelled the dialog.';
     });
@@ -133,6 +172,7 @@ BookMarks.get()
       targetEvent: ev,
     })
     .then(function(data) {
+    $mdToast.show($mdToast.simple().position('bottom','right').textContent('Added Board Successfully!'));
       $scope.categories = Categories.get()
  
 					.success(function(data) {
@@ -202,7 +242,29 @@ console.log('hi');
                 controller  : 'BoardCtrl'
             })
     })
+.filter("favicon", function() {
+	var provider = "https://www.google.com/s2/favicons?domain=%s";
 
+	return function(url) {
+		return provider.replace(/%s/g, url);
+	}
+})
+.directive("favicon", ["faviconFilter", function(faviconFilter) {
+	return {
+		restrict: "EA",
+		replace: true,
+		template: '<img ng-src="{{faviconUrl}}" alt="{{description}}">',
+		scope: {
+			url: "=",
+			description: "="
+		},
+		link: function($scope, element, attrs) {
+			$scope.$watch("url", function(value) {
+				$scope.faviconUrl = faviconFilter(value);
+			});
+		}
+	}
+}])
 .directive('userAvatar', function() {
   return {
     replace: true,
@@ -296,6 +358,44 @@ function CategoryDialogController($scope, $mdDialog,category,Categories) {
 					// if successful creation, call our get function to get all the new todos
 					.success(function(data) {
 						$scope.loading = false;
+                        $mdDialog.hide();
+						$scope.category = {}; // clear the form so our user is ready to enter another
+						$scope.categories = data; // assign our new list of todos
+					});
+			}
+		};
+   $scope.category = category;
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+  $scope.add = function(data) {
+    
+    $mdDialog.hide(data);
+  };
+}
+
+function EditCategoryDialogController($scope, $mdDialog,category,Categories) {
+  
+		
+
+		$scope.createcategory = function() {
+
+			// validate the bookmark to make sure that something is there
+			// if form is empty, nothing will happen
+			if ($scope.category.name != undefined) {
+				
+              $scope.category.id =category._id; 
+             
+              
+				// call the create function from our service (returns a promise object)
+				Categories.edit(category._id,$scope.category)
+
+					// if successful creation, call our get function to get all the new todos
+					.success(function(data) {
+						
                         $mdDialog.hide();
 						$scope.category = {}; // clear the form so our user is ready to enter another
 						$scope.categories = data; // assign our new list of todos
