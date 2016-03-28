@@ -8,6 +8,7 @@ var userSchema = Schema({
         id           : String,
         token        : String,
         email        : String,
+        image        : String,
         name         : String
     }
 });

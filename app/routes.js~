@@ -68,14 +68,6 @@ module.exports = function (app,passport) {
         // use mongoose to get all todos in the database
         getBookMarks(res,req);
     });
-    app.get('/api/bookmarks/:category_id', function (req, res) {
-    	BookMark.find({ 'belongs' : req.params.category_id }, function (err, bookmark) {
-            if (err)
-                res.send(err);
-
-            res.json(bookmark);
-        });
-    });
     app.get('/api/categories',isLoggedIn, function (req, res) {
         // use mongoose to get all todos in the database
         getCategories(res,req);
@@ -88,11 +80,11 @@ module.exports = function (app,passport) {
            var usersession = req.user;
             User.findOne({ 'google.id' : usersession.google.id }, function(err, user) {
                 if (err)
-                    console.log(err);
+                    res.send(err);
 
                 if (user) {
                         user.save(function (err) {
-                          if (err) console.log(err);
+                          if (err) res.send(err);
                           
                           
                  Category.findOne({ '_id' : req.body.category }, function(err, category) {
@@ -101,20 +93,24 @@ module.exports = function (app,passport) {
 
                 if (category) {
                         category.save(function (err) {
-                          if (err)  console.log(err);
+                          if (err)  res.send(err);
 
-							var story1 = new BookMark({
-							    url: req.body.url,
-							    belongs:req.body.category,
-							    _creator:user._id
-							  });
-							  
-							  story1.save(function (err) {
-							    if (err) console.log(err);
-							    // thats it!
-							  });        
+var story1 = new BookMark({
+    url: req.body.url,
+    belongs:req.body.category,
+    _creator:user._id
+  });
+  
+  story1.save(function (err) {
+    if (err) res.send(err);
+    // thats it!
+  });        
                           
-                           });                
+                                  
+         
+                          
+                          
+                        });                
 
                     // if a user is found, log them in
                   // res.sendStatus(200);
@@ -185,19 +181,6 @@ module.exports = function (app,passport) {
     app.delete('/api/categories/:category_id', function (req, res) {
         Category.remove({
             _id: req.params.category_id
-        }, function (err, category) {
-            if (err)
-                res.send(err);
-
-            getCategories(res,req);
-        });
-    });
-
-
-// delete a bookmark
-    app.delete('/api/bookmarks/:bookmark_id', function (req, res) {
-        BookMark.remove({
-            _id: req.params.bookmark_id
         }, function (err, category) {
             if (err)
                 res.send(err);

@@ -12,6 +12,9 @@ angular.module('bookmarkService', [])
 			},
 			delete : function(id) {
 				return $http.delete('/api/bookmarks/' + id);
+			},
+			getwithcategory : function(id) {
+				return $http.get('/api/bookmarks/' + id);
 			}
 		}
 	}]);
