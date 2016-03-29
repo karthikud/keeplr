@@ -36,7 +36,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
 // DELETE ==================================================================
 		
       $scope.deleteboard = function(id) {
-      $scope.loading = true;
+     
 
       Categories.delete(id)
 
@@ -45,7 +45,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       Categories.get()
       
       .success(function(data) {
-      console.log(data);
+      
 
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.categories = data; 
@@ -64,7 +64,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       BookMarks.get()
       // if successful deletion, call our get function to get all the new bookmarks
       .success(function(data) {
-      console.log(data);
+      
 
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.bookmarks = data; 
@@ -79,7 +79,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       BookMarks.getwithcategory(id)
 
       .success(function(data) {
-      console.log(data);
+      
 
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.bookmarks = data; 
@@ -91,7 +91,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       Categories.getone(id)
       
       .success(function(data) {
-      console.log(data);
+      
 
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.category = data; 
@@ -167,7 +167,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       $scope.categories = Categories.get()
 
       .success(function(data) {
-      console.log(data);
+      
 
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.categories = data; 

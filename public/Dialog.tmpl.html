@@ -5,7 +5,7 @@
         <h2>Add Board</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+         <i class="material-icons">clear</i>
         </md-button>
       </div>
     </md-toolbar>
@@ -15,7 +15,7 @@
    <md-input-container class="md-block">
           <label>Name</label>
           <input type="text" md-maxlength="30" required name="name" ng-model="category.name" />
-          <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
+          
           <div ng-messages="category.name.$error" ng-if="!showHints">
             <div ng-message="required">Name is required.</div>
             
@@ -26,7 +26,7 @@
         
           
           <md-switch name="personal" ng-model="category.personal" aria-label="Switch 1">
-    Private: {{ data.cb1 }}
+    
   </md-switch>
    
         

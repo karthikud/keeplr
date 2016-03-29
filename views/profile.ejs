@@ -116,55 +116,7 @@ Dashboard
     </div>
   </md-content>
 </div>
-<div layout="row" flex>
-<div class='md-padding' layout="row" layout-wrap flex > <md-card style="width: 200px;" ng-repeat="item in categories">
 
-<md-card-header>
-<md-card-avatar>
-<img class="md-user-avatar" src="<%= user.google.image %>"/>
-</md-card-avatar>
-<md-card-header-text>
-<span class="md-title"><%= user.google.name %></span>
-<span class="md-subhead">Belongsto</span>
-</md-card-header-text>
-</md-card-header>
-<md-card-content>
-
-<h3 class="md-headline">{{item.name}}</h3>
-
-</md-card-content>
-<div class="md-actions" layout="row" layout-align="end center">
-<md-button ng-click="deleteboard(item._id)"><i class="material-icons">delete_sweep</i></md-button>
-<md-button ng-click="showboard(item._id)">View</md-button>
-</div>
-</md-card></div>
-<div layout="column" flex>
-<div class='md-padding' layout="row" ><md-card style="width: 200px;" ng-repeat="item in bookmarks">
-
-<md-card-header>
-<md-card-avatar>
-<img class="md-user-avatar" src="<%= user.google.image %>">
-
-</md-card-avatar>
-<md-card-header-text>
-<span class="md-title"><%= user.google.name %></span>
-<span class="md-subhead">Belongsto</span>
-</md-card-header-text>
-</md-card-header>
-<img ng-src="card-image.png" class="md-card-image" alt="image caption">
-<md-card-content>
-
-<h3 class="md-subhead">{{item.url}}</h3>
-
-</md-card-content>
-<div class="md-actions" layout="row" layout-align="end center">
-<md-button ng-click="deletebookmark(item._id)"><i class="material-icons">delete_sweep</i></md-button>
-<md-button href="{{item.url}}" target="_blank"><i class="material-icons">open_in_new</i></md-button>
-
-</div>
-</md-card>
-</div>
-</div></div>
 
 
 
