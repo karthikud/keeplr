@@ -20,12 +20,14 @@ rel="stylesheet">
 
 </div>
 </md-toolbar>
+<md-list ng-cloak>
+  <md-subheader class="md-no-sticky">Boards</md-subheader>
+  <md-list-item  ng-click="showboard(item._id)" ng-repeat="item in categories">
+    <p> {{ item.name }} </p>
+    
+  </md-list-item>
 <md-list>
-<md-subheader>Boards</md-subheader>
-<md-list-item ng-repeat="item in categories">
-<md-button ng-click="showboard(item._id)" >{{item.name}}</md-button>
 
-</md-list-item>
 <md-divider></md-divider>
 <md-subheader>Management</md-subheader>
 <md-list-item ng-repeat="item in admin">
@@ -39,16 +41,31 @@ rel="stylesheet">
  
 
 <div  layout="column" class="relative" layout-fill role="main">
-<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
-        <md-tooltip md-direction="bottom">
+<md-fab-speed-dial  md-direction="up"
+                         class="md-fling md-fab-bottom-right">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab md-primary">
+
+            <ng-md-icon icon="add"></ng-md-icon>
+          </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+          <md-button ng-click="showAddcategory($event)" aria-label="Twitter" class="md-fab md-raised md-mini">
+          <md-tooltip md-direction="left">
+          Add Board
+        </md-tooltip>
+            <i class="material-icons">folder</i>
+          </md-button>
+          <md-button  ng-click="showAdd($event)" aria-label="Facebook" class="md-fab md-raised md-mini">
+          <md-tooltip md-direction="left">
           Add BookMark
-        </md-tooltip><ng-md-icon icon="add"></ng-md-icon>
-      </md-button>
-      <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAddcategory($event)">
-        <md-tooltip md-direction="bottom">
-          Add BookMark
-        </md-tooltip><ng-md-icon icon="add"></ng-md-icon>
-      </md-button>
+        </md-tooltip>
+            <i class="material-icons">attachment</i>
+          </md-button>
+          
+        </md-fab-actions>
+      </md-fab-speed-dial>
+
           <md-toolbar>
           <div class="md-toolbar-tools">
 
@@ -68,53 +85,35 @@ rel="stylesheet">
           </div>
 
           </md-toolbar>
+ <md-progress-linear md-mode="indeterminate" class="md-accent" ng-if="loadbookmark"></md-progress-linear>
+  <md-subheader class="md-primary">{{bookmarkcount}} Bookmarks</md-subheader>
 
-<div layout="row">
+<md-content class="md-padding" layout-xs="column" layout="row">
+
+<div layout="row" flex>
+<div class='md-padding' layout="row" layout-wrap flex > <md-card style="width: 200px;" ng-repeat="item in bookmarks">
+
+<md-card-header>
+<md-card-avatar>
+<img class="md-user-avatar" src="<%= user.google.image %>"/>
+</md-card-avatar>
+<md-card-header-text>
+<span class="md-title"><%= user.google.name %></span>
+<span class="md-subhead">Belongsto</span>
+</md-card-header-text>
+</md-card-header>
+<md-card-content>
+
+<h3 class="md-subhead">{{item.url}}</h3>
+
+</md-card-content>
+<div class="md-actions" layout="row" layout-align="end center">
+<md-button ng-click="deletebookmark(item._id)"><i class="material-icons">delete_sweep</i></md-button>
 
 </div>
-<md-content class="md-padding" layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column">
-      <md-toolbar style="background-color:#607D8B ;">
-      <h2 class="md-toolbar-tools">
-        <span>Boards</span>
-      </h2>
-    </md-toolbar>
-      <md-list-item ng-repeat="item in categories"  class="noright">
-    <img alt="{{ item.name }}" ng-src="http://placehold.it/50x50"" class="md-avatar" />
-    <p>{{ item.name }}</p>
+</md-card></div>
     
     
-    
-   
-    <i ng-click="deleteboard(item._id)" class="material-icons"><md-tooltip md-direction="bottom">
-          Delete Board
-        </md-tooltip>delete_sweep</i>
-    <md-button ng-click="editboard(item._id)"><md-tooltip md-direction="bottom">
-          Edit Board
-        </md-tooltip><i class="material-icons">mode_edit</i></md-button>
-    <md-button ng-click="showboard(item._id)"><md-tooltip md-direction="bottom">
-          Show BookMarks in this Board
-        </md-tooltip><i class="material-icons">flip_to_front</i></md-button>
-    
-  </md-list-item>
-</md-list>
-    </div>
-    <div flex-xs flex-gt-xs="50" layout="column">
-    <md-toolbar style="background-color:#CFD8DC ; color:#000">
-      <h2 class="md-toolbar-tools">
-        <span>BookMarks</span>
-      </h2>
-    </md-toolbar>
-     <md-list-item ng-repeat="item in bookmarks"  class="noright">
-     <img favicon url="item.url">
-    
-    <p>{{ item.url }}</p>
-    
-    
-    <md-button ng-click="deletebookmark(item._id)"><i class="material-icons">delete_sweep</i></md-button>
-  </md-list-item>
-</md-list>
-    </div>
   </md-content>
 </div>
 

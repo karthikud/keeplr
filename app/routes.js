@@ -15,6 +15,20 @@ res.json(bookmarks); // return all bookmarks in JSON format
 
 
 }
+function getAllBookMarks(res,req) {
+BookMark.find({ '_creator' : req.user._id },function (err, bookmarks) {
+
+// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+if (err) {
+console.log(err);
+res.send(err);
+}
+
+res.json(bookmarks); // return all bookmarks in JSON format
+});
+
+
+}
 function getCategories(res,req) {
 
 Category.find({ 'creator' : req.user._id },function (err, categories) {
@@ -54,7 +68,7 @@ module.exports = function (app,passport) {
     });
     
     app.get('/api/bookmarks', function (req, res) {
-    getBookMarks(res,req);
+    getAllBookMarks(res,req);
     });
 
     app.get('/api/bookmarks/:category_id', function (req, res) {
@@ -153,11 +167,11 @@ module.exports = function (app,passport) {
         
         // res.sendStatus(200);
         
-        getBookMarks(res,req);
+        
         }
         });
 
-
+         getAllBookMarks(res,req);
 
         });
     //edit board

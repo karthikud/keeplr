@@ -7,6 +7,9 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
     };
 
     
+      BookMarks.get().success(function(data) {
+       $scope.bookmarks = data; 
+      });
       Categories.get().success(function(data) {
        $scope.categories = data; 
       });
@@ -74,13 +77,13 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       };
 
       $scope.showboard = function(id) {
-
+       $scope.loadbookmark =true;
 
       BookMarks.getwithcategory(id)
 
       .success(function(data) {
-      
-
+      $scope.loadbookmark =false;
+       $scope.bookmarkcount = data.length;
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.bookmarks = data; 
       });
@@ -145,7 +148,15 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       targetEvent: ev,
       })
       .then(function(data) {
-      $mdToast.show($mdToast.simple().position('bottom','right').textContent('Added BookMark Successfully!'));
+        BookMarks.get()
+      
+      .success(function(data) {
+      
+      $scope.loading = false;
+      
+      $scope.bookmarks = data; 
+      });
+      $mdToast.show($mdToast.simple().position('top','right').textContent('Added BookMark Successfully!'));
       }, function() {
       $scope.alert = 'You cancelled the dialog.';
       });

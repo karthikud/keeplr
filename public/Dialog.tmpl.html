@@ -24,10 +24,10 @@
         </div>
         <div layout="row">
         
-          
-          <md-switch name="personal" ng-model="category.personal" aria-label="Switch 1">
-    
+          <md-switch name="personal" ng-model="category.personal"  ng-true-value="'yup'" ng-false-value="'nope'" aria-label="Switch 1">
+    Keep it Personal: {{ category.personal}}
   </md-switch>
+          
    
         
  
