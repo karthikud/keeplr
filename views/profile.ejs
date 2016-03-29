@@ -6,9 +6,8 @@
 rel="stylesheet">
 
 </head>
-<body  ng-controller="AppCtrl" ng-cloak>
-
-<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-1dp" md-component-id="left" >
+<body layout="row" ng-controller="AppCtrl" ng-cloak>
+<md-sidenav layout="column"  class="md-sidenav-left md-whiteframe-1dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 <md-toolbar class="md-tall md-hue-2">
 <span flex></span>
 <div layout="column" class="md-toolbar-tools-bottom inset">
@@ -35,43 +34,43 @@ rel="stylesheet">
 </md-list-item>
 </md-list>
 </md-sidenav>
+
+
  
 
-<div layout="column" class="relative" layout-fill role="main">
+<div  layout="column" class="relative" layout-fill role="main">
+<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
+        <md-tooltip md-direction="bottom">
+          Add BookMark
+        </md-tooltip><ng-md-icon icon="add"></ng-md-icon>
+      </md-button>
+      <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAddcategory($event)">
+        <md-tooltip md-direction="bottom">
+          Add BookMark
+        </md-tooltip><ng-md-icon icon="add"></ng-md-icon>
+      </md-button>
+          <md-toolbar>
+          <div class="md-toolbar-tools">
 
-<md-toolbar>
-<div class="md-toolbar-tools">
+          <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+          <ng-md-icon icon="menu"></ng-md-icon>
+          </md-button>
+          <h3>
+          Dashboard
+          </h3>
+          <span flex></span>
+          <md-button aria-label="Search">
+          <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+          <md-button aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+          <ng-md-icon icon="more_vert"></ng-md-icon>
+          </md-button>
+          </div>
 
-<md-button ng-click="toggleSidenav('left')"  aria-label="Menu">
-<ng-md-icon icon="menu"></ng-md-icon>
-</md-button>
-<h3>
-Dashboard
-</h3>
-<span flex></span>
-<md-button aria-label="Search">
-<ng-md-icon icon="search"></ng-md-icon>
-</md-button>
-<md-button aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-<ng-md-icon icon="more_vert"></ng-md-icon>
-</md-button>
-</div>
-
-</md-toolbar>
+          </md-toolbar>
 
 <div layout="row">
-<md-button ng-click="showAdd($event)" class="md-fab md-primary">
- <md-tooltip md-direction="bottom">
-          Add BookMark
-        </md-tooltip>
-<i class="material-icons">add</i>
-</md-button>
-<md-button ng-click="showAddcategory($event)" class="md-fab md-primary">
 
-<md-tooltip md-direction="bottom">
-          Add Board
-        </md-tooltip><i class="material-icons">filter_none</i>
-</md-button>
 </div>
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div flex-xs flex-gt-xs="50" layout="column">
@@ -132,6 +131,7 @@ Dashboard
 
 
 </div>
+
 
 
 
