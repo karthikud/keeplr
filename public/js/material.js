@@ -35,6 +35,20 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
  
   $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
   $scope.alert = '';
+    //show all bookmarks
+    
+    $scope.showAllBookMarks = function(id) {
+       $scope.loadbookmark =true;
+
+      BookMarks.get()
+
+      .success(function(data) {
+      $scope.loadbookmark =false;
+       $scope.bookmarkcount = data.length;
+      //$scope.bookmark = {}; // clear the form so our user is ready to enter another
+      $scope.bookmarks = data; 
+      });
+      };
 
 // DELETE ==================================================================
 		
