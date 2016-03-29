@@ -22,8 +22,10 @@ rel="stylesheet">
 </div>
 </md-toolbar>
 <md-list>
-<md-list-item ng-repeat="item in menu">
-<md-button href="{{item.link}}">{{item.title}}</md-button>
+<md-subheader>Boards</md-subheader>
+<md-list-item ng-repeat="item in categories">
+<md-button ng-click="showboard(item._id)" >{{item.name}}</md-button>
+
 </md-list-item>
 <md-divider></md-divider>
 <md-subheader>Management</md-subheader>

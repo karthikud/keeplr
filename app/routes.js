@@ -100,21 +100,8 @@ module.exports = function (app,passport) {
              //create bookmark withouta board
              if(req.body.category != undefined)
              {
-                var bookmark1 = new BookMark({
-            url: req.body.url,
-            
-            _creator:user._id
-            });
 
-            bookmark1.save(function (err) {
-            if (err) console.log(err);
-            // thats it!
-            });  
-                 
-             }
-             else
-             {
-                Category.findOne({ '_id' : req.body.category }, function(err, category) {
+                 Category.findOne({ '_id' : req.body.category }, function(err, category) {
             if (err)
             return done(err);
 
@@ -139,7 +126,22 @@ module.exports = function (app,passport) {
             // res.sendStatus(200);
 
             }
-            });    
+            });  
+                
+                 
+             }
+             else
+             {
+                 var bookmark1 = new BookMark({
+            url: req.body.url,
+            
+            _creator:user._id
+            });
+
+            bookmark1.save(function (err) {
+            if (err) console.log(err);
+            // thats it!
+            });  
 
              }
                                
