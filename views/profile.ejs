@@ -104,10 +104,11 @@ rel="stylesheet">
 </md-card-header>
 <md-card-content>
 
-<h3 class="md-subhead">{{item.url}}</h3>
+
 
 </md-card-content>
 <div class="md-actions" layout="row" layout-align="end center">
+<md-button ng-href="{{item.url}}" target="_blank" ><i class="material-icons">attachment</i></md-button>
 <md-button ng-click="deletebookmark(item._id)"><i class="material-icons">delete_sweep</i></md-button>
 
 </div>
