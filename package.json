@@ -1,7 +1,7 @@
 {
-  "name"         : "KeepMark",
+  "name"         : "Keeplr",
   "version"      : "0.0.1",
-  "description"  : "KeepMark",
+  "description"  : "Keeplr",
   "main"         : "server.js",
   "author"       : "karthik",
   "dependencies" : {

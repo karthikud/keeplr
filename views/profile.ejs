@@ -59,10 +59,16 @@ Dashboard
 
 <div layout="row">
 <md-button ng-click="showAdd($event)" class="md-fab md-primary">
+ <md-tooltip md-direction="bottom">
+          Add BookMark
+        </md-tooltip>
 <i class="material-icons">add</i>
 </md-button>
 <md-button ng-click="showAddcategory($event)" class="md-fab md-primary">
-<i class="material-icons">filter_none</i>
+
+<md-tooltip md-direction="bottom">
+          Add Board
+        </md-tooltip><i class="material-icons">filter_none</i>
 </md-button>
 </div>
 <md-content class="md-padding" layout-xs="column" layout="row">
@@ -79,9 +85,15 @@ Dashboard
     
     
    
-    <i ng-click="deleteboard(item._id)" class="material-icons">delete_sweep</i>
-    <md-button ng-click="editboard(item._id)"><i class="material-icons">mode_edit</i></md-button>
-    <md-button ng-click="showboard(item._id)"><i class="material-icons">flip_to_front</i></md-button>
+    <i ng-click="deleteboard(item._id)" class="material-icons"><md-tooltip md-direction="bottom">
+          Delete Board
+        </md-tooltip>delete_sweep</i>
+    <md-button ng-click="editboard(item._id)"><md-tooltip md-direction="bottom">
+          Edit Board
+        </md-tooltip><i class="material-icons">mode_edit</i></md-button>
+    <md-button ng-click="showboard(item._id)"><md-tooltip md-direction="bottom">
+          Show BookMarks in this Board
+        </md-tooltip><i class="material-icons">flip_to_front</i></md-button>
     
   </md-list-item>
 </md-list>
@@ -179,7 +191,7 @@ Dashboard
 
 <script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script> 
 <script src="/js/material.js"></script> 
-<script src="/js/services/todos.js"></script>
+<script src="/js/services/bookmark.js"></script>
 <script src="/js/services/category.js"></script> 
 <script src="/js/services/user.js"></script> 
 </body>
