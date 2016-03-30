@@ -1,6 +1,21 @@
 var BookMark = require('./models/bookmark');
 var Category = require('./models/category');
 var User       = require('./models/user');
+
+function getAllUsers(res,req) {
+User.find(function (err, users) {
+
+// if there is an error retrieving, send the error. nothing after res.send(err) will execute
+if (err) {
+console.log(err);
+res.send(err);
+}
+
+res.json(users); // return all bookmarks in JSON format
+});
+
+
+}
 function getBookMarks(res,req) {
 BookMark.find({ 'belongs' : req.params.category_id },function (err, bookmarks) {
 
@@ -16,16 +31,13 @@ res.json(bookmarks); // return all bookmarks in JSON format
 
 }
 function getAllBookMarks(res,req) {
-BookMark.find({ '_creator' : req.user._id },function (err, bookmarks) {
 
-// if there is an error retrieving, send the error. nothing after res.send(err) will execute
-if (err) {
-console.log(err);
-res.send(err);
-}
+     BookMark.find({ '_creator' : req.user._id })
+            .populate('_creator')
+            .exec(function(error, bookmarks) {
+                res.json(bookmarks);
+            })
 
-res.json(bookmarks); // return all bookmarks in JSON format
-});
 
 
 }
@@ -40,6 +52,19 @@ res.send(err);
 
 res.json(categories); 
 });
+}
+function getSharedBoards(res,req) {
+Category.find({ 'collaborators' : req.user._id },function (err, categories) {
+
+
+if (err) {
+res.send(err);
+}
+
+res.json(categories); 
+});
+
+
 }
 module.exports = function (app,passport) {
 
@@ -66,8 +91,12 @@ module.exports = function (app,passport) {
     req.logout();
     res.redirect('/');
     });
+    //get all users
+    app.get('/api/users', function (req, res) {
+    getAllUsers(res,req);
+    });
     
-    app.get('/api/bookmarks', function (req, res) {
+    app.get('/api/bookmarks',  isLoggedIn ,function (req, res) {
     getAllBookMarks(res,req);
     });
 
@@ -83,6 +112,10 @@ module.exports = function (app,passport) {
     app.get('/api/categories',isLoggedIn, function (req, res) {
     
     getCategories(res,req);
+    });
+    app.get('/api/sharedboards',isLoggedIn, function (req, res) {
+    
+    getSharedBoards(res,req);
     });
 
     app.get('/api/categories/:category_id',isLoggedIn, function (req, res) {
@@ -174,6 +207,52 @@ module.exports = function (app,passport) {
          getAllBookMarks(res,req);
 
         });
+
+        //add collab
+
+        app.post('/api/addcollab/:category_id', function (req, res) {
+        console.log(req.body);
+        var data = req.body;
+        
+        
+
+        
+       
+         Category.findOne({ '_id' : req.params.category_id}, function(err, category) {
+            if (err)
+            return done(err);
+
+            if (category) {
+             
+            
+            console.log('am in collab');
+            for (x in data) {
+
+                //check for duplication
+                
+            
+            category.collaborators.push(data[x].id);
+            }
+             
+
+            
+           
+
+            category.save(function (err) {
+            if (err)  console.log(err);
+
+
+            getAllBookMarks(res,req);
+            });                
+
+            
+            // res.sendStatus(200);
+
+            }
+            });     
+
+        });
+
     //edit board
         app.post('/api/categories_update/:category_id', function (req, res) {
         console.log(req.body.name);
@@ -198,6 +277,7 @@ module.exports = function (app,passport) {
             console.log('am in ');
             category.name = req.body.name;
             category.personal = req.body.personal;
+            category.collaborators = req.body.collaborators;
             category.creator = user._id;
 
             category.save(function (err) {

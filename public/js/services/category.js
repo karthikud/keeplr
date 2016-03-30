@@ -7,6 +7,9 @@ angular.module('categoryService', [])
 			get : function() {
 				return $http.get('/api/categories');
 			},
+			getsharedboards : function() {
+				return $http.get('/api/sharedboards');
+			},
 			create : function(categoryData) {
 				return $http.post('/api/categories', categoryData);
 			},
@@ -18,6 +21,9 @@ angular.module('categoryService', [])
 			},
             edit : function(id,categoryData) {
 				return $http.post('/api/categories_update/' + id,categoryData);
+			},
+			addcollab : function(id,collabdata) {
+				return $http.post('/api/addcollab/' + id,collabdata);
 			}
 		}
 	}]);

@@ -17,10 +17,10 @@
           <label>Url</label>
           <input type="url" md-maxlength="30" required name="url" ng-model="bookmark.url" />
           <div class="hint" ng-if="showHints">Tell us what we should call you!</div>
-          <div ng-messages="userForm.name.$error" ng-if="!showHints">
+          
             <div ng-message="required">Url is required.</div>
             <div ng-message="url">Need a Valid URL</div>
-          </div>
+         
         </md-input-container>
          <md-input-container class="md-block" flex-gt-sm>
             <label>Board</label>
@@ -30,7 +30,9 @@
               </md-option>
             </md-select>
           </md-input-container>
+          bookmark
           </md-content>
+          
        
 
         

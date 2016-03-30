@@ -1,7 +1,7 @@
 angular.module('keeplr', ['bookmarkService','categoryService','userService','ngMaterial', 'ngMdIcons','ngRoute'])
 
 .controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$mdMedia','BookMarks','Categories','User','$mdToast',function($scope, $mdBottomSheet, $mdSidenav, $mdDialog,$mdMedia,BookMarks,Categories,User,$mdToast){
-  
+  $scope.ifcategory =false;
     $scope.toggleSidenav = function(menuId) {
     $mdSidenav(menuId).toggle();
     };
@@ -13,9 +13,13 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       Categories.get().success(function(data) {
        $scope.categories = data; 
       });
-            
+      Categories.getsharedboards().success(function(data) {
+       $scope.sharedboards = data; 
+      });
+
+    
   $scope.bookmark ={url:'https://www.google.com/',category:'Shopping'};
-  $scope.category ={name:'shopping'};
+  //$scope.category ={name:'shopping'};
   
  	$scope.menu = [
     {
@@ -35,10 +39,32 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
  
   $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
   $scope.alert = '';
+  // add collaboarators
+  $scope.addcollab = function(id)
+  {
+
+    
+      
+       Categories.edit(category._id,$scope.collaborators)
+
+
+          .success(function(data) {
+
+          
+          
+          $scope.categories = data; 
+          });
+      
+      
+      
+    
+
+  }
     //show all bookmarks
     
     $scope.showAllBookMarks = function(id) {
        $scope.loadbookmark =true;
+       $scope.ifcategory =false;
 
       BookMarks.get()
 
@@ -92,6 +118,111 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
 
       $scope.showboard = function(id) {
        $scope.loadbookmark =true;
+       $scope.ifcategory =true;
+       //
+       $scope.allContacts = {};
+    var pendingSearch, cancelSearch = angular.noop;
+    var cachedQuery, lastSearch;
+    User.getall().success(function(data) {
+    $scope.users = data; 
+    var contacts = [];
+    for (x in data) {
+
+
+    var contact = {
+    id :data[x]._id,
+    name: data[x].google.name,
+    email: data[x].google.email,
+    image: data[x].google.image
+    };
+    contact._lowername = contact.name.toLowerCase();
+
+    contacts.push(contact);
+    }
+    //console.log(contacts);
+
+
+    $scope.allContacts = contacts;
+    $scope.collaborators = [];
+    $scope.$watch('collaborators', function(newVal, oldVal){
+    console.log('changed');
+    console.log($scope.collaborators);
+    //update collab
+    Categories.addcollab(id,$scope.collaborators)
+
+
+    .success(function(data) {
+
+
+
+    //$scope.categories = data; 
+    });
+
+    }, true);
+    $scope.asyncContacts = [];
+    $scope.filterSelected = true;
+    $scope.querySearch = querySearch;
+    $scope.delayedQuerySearch = delayedQuerySearch;
+    /**
+    * Search for contacts; use a random delay to simulate a remote call
+    */
+    function querySearch (criteria) {
+    cachedQuery = cachedQuery || criteria;
+    return cachedQuery ? $scope.allContacts.filter(createFilterFor(cachedQuery)) : [];
+    }
+    /**
+    * Async search for contacts
+    * Also debounce the queries; since the md-contact-chips does not support this
+    */
+    function delayedQuerySearch(criteria) {
+    cachedQuery = criteria;
+    if ( !pendingSearch || !debounceSearch() )  {
+    cancelSearch();
+    return pendingSearch = $q(function(resolve, reject) {
+    // Simulate async search... (after debouncing)
+    cancelSearch = reject;
+    $timeout(function() {
+    resolve( $scope.querySearch() );
+    refreshDebounce();
+    }, Math.random() * 500, true)
+    });
+    }
+    return pendingSearch;
+    }
+    function refreshDebounce() {
+    lastSearch = 0;
+    pendingSearch = null;
+    cancelSearch = angular.noop;
+    }
+    /**
+    * Debounce if querying faster than 300ms
+    */
+    function debounceSearch() {
+    var now = new Date().getMilliseconds();
+    lastSearch = lastSearch || now;
+    return ((now - lastSearch) < 300);
+    }
+    /**
+    * Create filter function for a query string
+    */
+    function createFilterFor(query) {
+    var lowercaseQuery = angular.lowercase(query);
+    return function filterFn(contact) {
+    return (contact._lowername.indexOf(lowercaseQuery) != -1);;
+    };
+    }
+
+    });
+       Categories.getone(id)
+      
+      .success(function(data) {
+      
+
+      //$scope.bookmark = {}; // clear the form so our user is ready to enter another
+      $scope.categoryname = data.name; 
+      
+      });
+       
 
       BookMarks.getwithcategory(id)
 
@@ -101,6 +232,11 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
       //$scope.bookmark = {}; // clear the form so our user is ready to enter another
       $scope.bookmarks = data; 
       });
+      };
+
+      $scope.showsharedboard = function(id) {
+       
+       
       };
       //edit
       $scope.editboard = function(id) {
@@ -348,8 +484,12 @@ function DialogController($scope, $mdDialog,bookmark,Categories,BookMarks) {
       };
 }
 
-function CategoryDialogController($scope, $mdDialog,category,Categories) {
+function CategoryDialogController($scope, $mdDialog,category,Categories,User) {
     $scope.category = {};
+    
+
+    
+    
     $scope.createcategory = function() {
 
 
@@ -380,6 +520,9 @@ function CategoryDialogController($scope, $mdDialog,category,Categories) {
     $mdDialog.hide(data);
     };
 }
+
+
+    
 
 function EditCategoryDialogController($scope, $mdDialog,category,Categories) {
   
@@ -415,4 +558,6 @@ function EditCategoryDialogController($scope, $mdDialog,category,Categories) {
       $mdDialog.hide(data);
       };
 }
+
+
 

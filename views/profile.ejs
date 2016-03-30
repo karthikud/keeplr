@@ -28,6 +28,16 @@ rel="stylesheet">
   </md-list-item>
   <md-list-item  ng-click="showboard(item._id)" ng-repeat="item in categories">
     <p> {{ item.name }} </p>
+    <md-button class="md-secondary md-icon-button" ng-click="doSecondaryAction($event)"  aria-label="call">
+            <i class="material-icons">delete_sweep</i>
+          </md-button>
+
+  </md-list-item>
+
+   <md-subheader class="md-no-sticky">Boards Shared with You</md-subheader>
+  
+  <md-list-item  ng-click="showsharedboard(item._id)" ng-repeat="item in sharedboards">
+    <p> {{ item.name }} </p>
     
   </md-list-item>
 <md-list>
@@ -90,24 +100,40 @@ rel="stylesheet">
 
           </md-toolbar>
  <md-progress-linear md-mode="indeterminate" class="md-accent" ng-if="loadbookmark"></md-progress-linear>
-  <md-subheader class="md-primary">{{bookmarkcount}} Bookmarks</md-subheader>
+  <md-subheader class="md-accent">{{bookmarkcount}} Bookmarks </md-subheader>
+  <form>
+  <md-content class="md-padding autocomplete" layout="column" ng-if="ifcategory">
+  <h2 class="md-title md-primary" ><md-subheader class="md-warn">Collaborators of  {{categoryname}}</md-subheader></h2>
+    <md-contact-chips
+         name ="collaborators" ng-model="collaborators"
+        md-contacts="querySearch($query)"
+        md-contact-name="name"
+        md-contact-image="image"
+        md-contact-email="email"
+        md-require-match="true"
+        md-highlight-flags="i"
+        filter-selected="filterSelected"
+        placeholder="Add collaborators">
+    </md-contact-chips>
+    </md-content>
+    </form>
 
 <md-content class="md-padding" layout-xs="column" layout="row">
+
 
 <div layout="row" flex>
 <div class='md-padding' layout="row" layout-wrap flex > <md-card style="width: 200px;" ng-repeat="item in bookmarks">
 
 <md-card-header>
 <md-card-avatar>
-<img class="md-user-avatar" src="<%= user.google.image %>"/>
+<img class="md-user-avatar" src="{{item._creator.google.image}}"/>
 </md-card-avatar>
 <md-card-header-text>
-<span class="md-title"><%= user.google.name %></span>
+<span class="md-title">{{item._creator.google.name}}</span>
 <span class="md-subhead">Belongsto</span>
 </md-card-header-text>
 </md-card-header>
 <md-card-content>
-
 
 
 </md-card-content>
