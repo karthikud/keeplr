@@ -14,7 +14,7 @@ angular.module('keeplr', ['bookmarkService','categoryService','userService','ngM
        $scope.categories = data; 
       });
             
-  $scope.bookmark ={url:'https://www.google.com/',category:'Shopping'};
+  $scope.bookmark ={url:'https://www.google.com/'};
   $scope.category ={name:'shopping'};
   
  	$scope.menu = [
