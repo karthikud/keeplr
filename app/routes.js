@@ -112,7 +112,7 @@ module.exports = function (app,passport) {
         if (err) console.log(err);
 
              //create bookmark withouta board
-             if(req.body.category != undefined)
+             if(req.body.category)
              {
 
                  Category.findOne({ '_id' : req.body.category }, function(err, category) {
